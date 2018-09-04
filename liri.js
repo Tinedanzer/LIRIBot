@@ -60,7 +60,7 @@ let rebo=JSON.parse(response.body);
   console.log(rebo.Year);
   console.log(rebo.imdbRating);
   console.log(rebo.Genre);
-  console.log(`Main Country: ${rebo.Country[0]}`);
+  console.log(`Main Country: ${rebo.Country[0]}${rebo.Country[1]}`);
   console.log(rebo.Language);
   console.log(rebo.Plot);
   console.log(rebo.Actors);
