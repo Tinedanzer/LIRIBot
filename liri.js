@@ -54,7 +54,7 @@ Movie=()=>{
   if(error){
       console.log(error);
   };
-//   using JSON.parse to convert the string received into an object, to better show the data
+//   using JSON.parse to convert the string received into an object, to better show and manipulate the data
 let rebo=JSON.parse(response.body);
   console.log(rebo.Title);
   console.log(rebo.Year);
@@ -76,9 +76,9 @@ doThings = () =>
         if (err) {
             console.log(err);
         }
-        // this split method returns an ARRAY, which allows me call the specific song '[1]'
+        // this split method returns an ARRAY/object, which allows me to call the specific song '[1]'
         // the split happens each time a comma occurs
-        // that I have preprogrammed in random.txt
+        // that I have preprogrammed into random.txt
         let dataArr = data.split(",");
         musicTime(dataArr[1]);
 
