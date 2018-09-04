@@ -35,9 +35,9 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
 });
 };
 // Starting Spotify, set the property, limit, to 2 results
-musicTime=(song)=>(
+musicTime=(user2)=>(
     spotify.search({
-     type: 'track', query: song , limit: 2 })
+     type: 'track', query: user2 , limit: 2 })
   .then((response)=> {
     console.log(response.tracks.items[0].artists[0].name);
     console.log(response.tracks.items[0].name);
