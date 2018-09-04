@@ -1,22 +1,24 @@
 //  .env file for keys on my private local storage. the require "dotenv" allows these files to be read
 require("dotenv").config();
-// for file storage
-
-// let fs = require('fs');
+// for file storage and access
+let fs = require('fs');
 
 // load the keys
 let keys= require("./keys.js");
 let Twitter= require("twitter");
-// let Spotify=require("node-spotify-api");
-// let spotify = new Spotify(keys.spotify);
+let Spotify=require("node-spotify-api");
+let spotify = new Spotify(keys.spotify);
 let client = new Twitter(keys.twitter);
-// let inquirer= require("inquirer");
+
 let request= require("request");
-// const omdbKey=(keys.omdb);
+let omdbKey=(keys.omdb.key);
+
 
 // imports keys for each of these apis
 let user1 = process.argv[2];
 let user2 = process.argv[3];
+
+// Starting Twitter
 // sets the parameters for 10 tweets, and my username on Twitter
 var params = {screen_name: 'Tinedanzer2', count: 10};
 // function Tweets() {}
@@ -26,13 +28,63 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
     {
 // allows me to treat my tweets as an object, so I can print only the text data
       for (let tweet of tweets){       
-    //   console.log('§§§§§§§§§§§§§§§§§§§§§§§§§');
-    // console.log(JSON.stringify(tweet.text, null, 0));
+    // console.log(JSON.stringify(tweet.text, null, 2));
     console.log(tweet.text);
                             };
     };
 });
 };
+// Starting Spotify, set the property, limit, to 2 results
+musicTime=(song)=>(
+    spotify.search({
+     type: 'track', query: song , limit: 2 })
+  .then((response)=> {
+    console.log(response.tracks.items[0].artists[0].name);
+    console.log(response.tracks.items[0].name);
+    console.log(`Song Preview!: ${response.tracks.items[0].preview_url}`);
+    console.log(`Album Name: ${response.tracks.items[0].album.name}`);
+  })
+  .catch((err)=> {
+    console.log(err);
+  })
+);
+// Starting 'request' to pull from the OMDB API
+Movie=()=>{
+    request(`https://www.omdbapi.com/?t=${user2}&y=&plot=short&apikey=${omdbKey}`, function (error, response,) {
+  if(error){
+      console.log(error);
+  };
+//   using JSON.parse to convert the string received into an object, to better show the data
+let rebo=JSON.parse(response.body);
+  console.log(rebo.Title);
+  console.log(rebo.Year);
+  console.log(rebo.imdbRating);
+  console.log(rebo.Genre);
+  console.log(`Main Country: ${rebo.Country[0]}`);
+  console.log(rebo.Language);
+  console.log(rebo.Plot);
+  console.log(rebo.Actors);
+});
+
+}
+
+// Starting: 'fs'
+// throwing information from random.txt into the spotify api to get back data
+doThings = () => 
+{
+    fs.readFile("random.txt", "utf8", (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        // this split method returns an ARRAY, which allows me call the specific song '[1]'
+        // the split happens each time a comma occurs
+        // that I have preprogrammed in random.txt
+        let dataArr = data.split(",");
+        musicTime(dataArr[1]);
+
+    });
+};
+// instead of making if/else statements, I used switch, defining my parameters with the user process.argv[] values
 Commands = (user1, user2) => {
     switch (user1) {
         case "my-tweets":
@@ -41,9 +93,9 @@ Commands = (user1, user2) => {
 
         case "spotify-this-song":
             if (user2 === undefined) {
-                user2 = "The River";
+                user2 = "The Sign, Ace of Base";
             };
-            getSong(user2);
+            musicTime(user2);
             break;
 
         case "movie-this":
@@ -54,5 +106,7 @@ Commands = (user1, user2) => {
             doThings();
             break;};
     };
+// calls the function to run the program; input a case for user1, and a song/movie for the appropriate spotify/movie-this 'case' for user2.
 Commands(user1, user2)
-// getTweets()
+// getTweets();
+// musicTime();
