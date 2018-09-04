@@ -44,8 +44,10 @@ musicTime=(user2)=>(
     console.log(`Song Preview!: ${response.tracks.items[0].preview_url}`);
     console.log(`Album Name: ${response.tracks.items[0].album.name}`);
   })
+
+//   ********Catches errors, and prints them in the console for the user*******
   .catch((err)=> {
-    console.log(err);
+    console.log("Error, Please double check your entry!");
   })
 );
 // Starting 'request' to pull from the OMDB API
