@@ -66,8 +66,19 @@ let rebo=JSON.parse(response.body);
   console.log(rebo.Language);
   console.log(rebo.Plot);
   console.log(rebo.Actors);
-});
 
+  var movieData = [
+    "Name: " + rebo.Title,
+    "Year: " + rebo.Year,
+    "imdbRating: " + rebo.imdbRating,
+    "Genre: " + rebo.Genre,
+    "Plot: " + rebo.Plot
+  ].join("\n\n");
+  fs.appendFile("log.txt", movieData, function(err) {
+    if (err) throw err;
+    // console.log(actorData);
+  });
+});
 }
 
 // Starting: 'fs'
