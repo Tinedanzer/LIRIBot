@@ -66,8 +66,10 @@ let rebo=JSON.parse(response.body);
   console.log(rebo.Language);
   console.log(rebo.Plot);
   console.log(rebo.Actors);
-
+// stores movie data in an array, .join("\n\n") allows for line spacing.
+// this is important when  using fs.appendfile ,otherwise the information will be stacked.
   var movieData = [
+      "----------",
     "Name: " + rebo.Title,
     "Year: " + rebo.Year,
     "imdbRating: " + rebo.imdbRating,
