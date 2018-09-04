@@ -23,7 +23,7 @@
     "twitter",
     "dotenv",
     "request",
-    "fs",
+    "fs"
   ],
   "author": "John Hill",
   "license": "MIT",
