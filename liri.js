@@ -27,9 +27,9 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) 
     {
 // allows me to treat my tweets as an object, so I can print only the text data
-      for (let tweet of tweets){       
+      for (let i of tweets){       
     // console.log(JSON.stringify(tweet.text, null, 2));
-    console.log(tweet.text);
+    console.log(i.text);
                             };
     };
 });
@@ -91,7 +91,7 @@ doThings = () =>
         if (err) {
             console.log(err);
         }
-        // this split method returns an ARRAY/object, which allows me to call the specific song '[1]'
+        // this split method returns an object, which allows me to call the specific song '[1]'
         // the split happens each time a comma occurs
         // that I have preprogrammed into random.txt
         let dataArr = data.split(",");
